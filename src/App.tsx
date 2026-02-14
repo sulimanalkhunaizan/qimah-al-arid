@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import {
-  Wrench, Settings, Ruler, ShieldCheck, Sparkles, Snowflake,
   BadgeCheck, Users, Cpu, Hammer, Award, ClipboardList,
   Home, Building2, UtensilsCrossed, HeartPulse, ShoppingBag, Factory,
-  Phone, MessageCircle, MapPin, X, Globe, Menu
+  Phone, MessageCircle, MapPin, X, Globe, Menu, Clock, DollarSign, CheckCircle, ArrowRight, Star, Quote
 } from 'lucide-react'
 import './App.css'
+import heroImage from './assets/Landin-page.png'
+import serviceRepair from './assets/Service-reparing.png'
+import serviceInstallation from './assets/Service-installation.png'
+import serviceIndoor from './assets/Services-qulity indoor.png'
 
 // Bilingual content dictionary
 const content = {
@@ -21,20 +24,34 @@ const content = {
     },
     hero: {
       badge: 'خبرة 28+ سنة في مجال التكييف',
-      tagline: 'حلول تكييف متكاملة بجودة عالمية وإدارة سعودية متخصصة',
+      headline: {
+        heating: 'التدفئة',
+        and: 'و',
+        cooling: 'التبريد',
+        line3: 'إصلاحات، صيانة،',
+        line4: 'وتركيبات'
+      },
+      stats: {
+        customers: 'عملاء سعداء: 10K+',
+        phone: 'اتصل مباشرة: 0539799771'
+      },
       cta1: 'اطلب عرض سعر',
-      cta2: 'تواصل معنا'
+      cta2: 'اتصل الآن',
+      trustBadges: {
+        emergency: 'خدمة طوارئ 24/7',
+        pricing: 'أسعار شفافة',
+        local: 'ملكية سعودية',
+        licensed: 'مرخص ومؤمن'
+      }
     },
     services: {
       title: 'خدماتنا',
       subtitle: 'نقدم حلول تكييف شاملة ومتكاملة لجميع احتياجاتك',
+      readMore: 'اقرأ المزيد ←',
       items: [
-        { title: 'توريد وتركيب جميع أنواع التكييف', desc: 'مخفي، باكيج، كاسيت، سبيلت، شيلر' },
-        { title: 'تصنيع وتوريد وتركيب مجاري الهواء', desc: 'دكت سابك دائري ومربع وفوم' },
-        { title: 'دراسة وتصميم مجاري الهواء', desc: 'حسب المخطط الهندسي' },
-        { title: 'تأسيس وتمديد النحاس', desc: 'من شركة مولر الأمريكية مع عزل خطين' },
-        { title: 'الصيانة الطارئة والدورية', desc: 'مع عقود سنوية شاملة' },
-        { title: 'تنظيف وتعقيم الدكت', desc: 'بتقنيات حديثة ومتطورة' }
+        { title: 'توريد وتركيب جميع أنواع التكييف', desc: 'مخفي، باكيج، كاسيت، سبيلت، شيلر', image: serviceInstallation },
+        { title: 'التنظيف والصيانة الشاملة', desc: 'تنظيف شامل وصيانة دورية لأنظمة التكييف لضمان الأداء الأمثل', image: serviceRepair },
+        { title: 'تكييف عالي الجودة', desc: 'أنظمة تكييف بجودة عالمية وكفاءة عالية في استهلاك الطاقة', image: serviceIndoor }
       ]
     },
     features: {
@@ -56,6 +73,42 @@ const content = {
         { number: '+28', label: 'سنة خبرة' },
         { number: '100%', label: 'رضا العملاء' },
         { number: '+1000', label: 'مشروع منجز' }
+      ]
+    },
+    testimonials: {
+      title: 'ماذا قال عملاؤنا',
+      subtitle: 'آراء عملائنا تتحدث عن جودة خدماتنا',
+      items: [
+        {
+          name: 'Abdualrahman Al Sahaliy',
+          rating: 5,
+          text: 'معرض متخصص بالتكييف سواءً المخفي او الكونسلت او الاسبلت او الكاسيت يقدم اسعار جداً ممتازه وفريق عمل ممتاز باأداره صاحب الحلال ابوعبدالله الله يوفقه متعامل معهم من اكثر من خمس سنوات ولازلت اتعامل معهم'
+        },
+        {
+          name: 'Ray S.',
+          rating: 5,
+          text: 'اشتريت مكيف كاسيت . صاحب المعرض والموظفين والاخ عبدالناصر كلهم قمة في الرقي والاخلاق والتعاون . من دخول المعرض والاجابة على الاستفسارات وحتى تم التركيب . اسال الله ان يبارك لهم في مالهم وفي رزقهم'
+        },
+        {
+          name: 'Abdulaziz',
+          rating: 5,
+          text: 'تم التعامل معهم وتم توريد وتركيب المكيفات حسب الوقت المتفق عليه التركيب ممتاز وأشكر ابوعبدالله على اهتمامه والمتابعة اول بأول ، رجل نصوح وفاهم'
+        },
+        {
+          name: 'BACER MIHA',
+          rating: 5,
+          text: 'تعاملت مع قمة العارض في تركيب ثلاث فلل من الدكت والمكيفات ماشاء الله عليهم مواعيد وشغلهم فوق الوصف وخاصه المهندس بشير والشكر موصول لمدير المحل عبد الناصر انصح بلتعامل معهم'
+        },
+        {
+          name: 'Azzam',
+          rating: 5,
+          text: 'تجربتي معهم ناجحة، أعجبني منهم التعامل الراقي والجودة في العمل والإنجاز السريع أشكر أبو عبدالله الخنيزان على متابعته الدقيقة للعمل وحسن أخلاقه والشكر موصول للأخ عبدالناصر على جهوده'
+        },
+        {
+          name: 'Saeed Awad',
+          rating: 5,
+          text: 'كلمة شكر لاتوفي حقهم وخدمتهم رائعة وتعاملهم ممتاز جدا وبالاخص الاخ عبدالناصر جزاءه الله خير'
+        }
       ]
     },
     clients: {
@@ -103,21 +156,35 @@ const content = {
       contact: 'Contact Us'
     },
     hero: {
-      badge: '28+ years of expertise in AC & cooling solutions',
-      tagline: 'Integrated AC solutions with global quality and specialized Saudi management',
-      cta1: 'Request a Quote',
-      cta2: 'Contact Us'
+      badge: '28+ Years of AC & Cooling Expertise',
+      headline: {
+        heating: 'Heating',
+        and: 'And',
+        cooling: 'Cooling',
+        line3: 'Repairs, Maintenance,',
+        line4: '& Installations'
+      },
+      stats: {
+        customers: 'Happy Customers: 10K+',
+        phone: 'Call Us Directly: 0539799771'
+      },
+      cta1: 'SCHEDULE SERVICE',
+      cta2: 'CALL NOW',
+      trustBadges: {
+        emergency: '24/7 Emergency',
+        pricing: 'Upfront Pricing',
+        local: 'Locally Owned',
+        licensed: 'Licensed & Insured'
+      }
     },
     services: {
       title: 'Services',
       subtitle: 'Comprehensive and integrated AC solutions for all your needs',
+      readMore: 'Read More →',
       items: [
-        { title: 'Supply & install all AC types', desc: 'Concealed, package, cassette, split, desert cooler' },
-        { title: 'Manufacture/supply/install air ducts', desc: 'SABIC duct round/square/foam' },
-        { title: 'Duct study & design', desc: 'Based on engineering drawings' },
-        { title: 'Copper piping', desc: 'By Mueller USA with double-line insulation' },
-        { title: 'Emergency & periodic maintenance', desc: 'Plus annual contracts' },
-        { title: 'Duct cleaning & sanitization', desc: 'With modern technology' }
+        { title: 'Supply & install all AC types', desc: 'Concealed, package, cassette, split, desert cooler', image: serviceInstallation },
+        { title: 'Cleaning & Comprehensive Maintenance', desc: 'Complete cleaning and periodic maintenance for optimal AC system performance', image: serviceRepair },
+        { title: 'Premium Quality AC Systems', desc: 'High-quality AC systems with global standards and energy efficiency', image: serviceIndoor }
       ]
     },
     features: {
@@ -139,6 +206,42 @@ const content = {
         { number: '28+', label: 'Years Experience' },
         { number: '100%', label: 'Customer Satisfaction' },
         { number: '1000+', label: 'Completed Projects' }
+      ]
+    },
+    testimonials: {
+      title: 'What Our Customers Say',
+      subtitle: 'Our customers\' opinions speak about the quality of our services',
+      items: [
+        {
+          name: 'Abdualrahman Al Sahaliy',
+          rating: 5,
+          text: 'A specialized AC showroom offering excellent prices and an outstanding team. I have been dealing with them for over five years and I still do. They are easy to deal with and follow up on work diligently.'
+        },
+        {
+          name: 'Ray S.',
+          rating: 5,
+          text: 'I bought a cassette AC. The owner, employees and brother Abdulnasser are all the pinnacle of elegance, ethics and cooperation. From entering the showroom to answering inquiries until the installation was complete.'
+        },
+        {
+          name: 'Abdulaziz',
+          rating: 5,
+          text: 'Dealt with them and the AC supply and installation was done on the agreed time. Excellent installation. I thank Abu Abdullah for his care and follow-up. A sincere and knowledgeable man.'
+        },
+        {
+          name: 'BACER MIHA',
+          rating: 5,
+          text: 'I dealt with Qimah Al-Arid for installing three villas with ducts and ACs. They are punctual and their work is beyond description, especially engineer Bashir. I recommend dealing with them.'
+        },
+        {
+          name: 'Azzam',
+          rating: 5,
+          text: 'My experience with them was successful. I admired their elegant treatment, quality of work and quick completion. I thank Abu Abdullah Al-Khanaizan for his precise follow-up and good manners.'
+        },
+        {
+          name: 'Saeed Awad',
+          rating: 5,
+          text: 'Words of thanks are not enough for them. Their service is wonderful and their treatment is excellent, especially brother Abdulnasser, may God reward him well.'
+        }
       ]
     },
     clients: {
@@ -178,7 +281,6 @@ const content = {
 }
 
 // Icon mappings
-const serviceIcons = [Snowflake, Wrench, Settings, Ruler, ShieldCheck, Sparkles]
 const featureIcons = [BadgeCheck, Users, Cpu, Hammer, Award, ClipboardList]
 const clientIcons = [Home, Building2, UtensilsCrossed, HeartPulse, ShoppingBag, Factory]
 
@@ -305,7 +407,7 @@ function App() {
             <span>{language === 'ar' ? 'EN' : 'AR'}</span>
           </button>
           <div className="logo">
-            <img src="/qimah-logo.png" alt={t.companyName} className="logo-image" />
+            <img src={`${import.meta.env.BASE_URL}qimah-logo.png`} alt={t.companyName} className="logo-image" />
             <span className="logo-text">{t.companyName}</span>
           </div>
           <button className="mobile-menu-toggle" onClick={toggleMobileMenu} aria-label="Toggle menu" aria-expanded={isMobileMenuOpen}>
@@ -350,15 +452,57 @@ function App() {
 
       {/* Hero Section */}
       <section className="hero">
-        <div className="hero-background"></div>
         <div className="hero-content">
           <div className="hero-badge">{t.hero.badge}</div>
-          <h1 className="hero-title">{t.companyName}</h1>
-          <p className="hero-tagline">{t.hero.tagline}</p>
+          <h1 className="hero-title">
+            <div className="hero-title-line">
+              <span className="hero-title-heating">{t.hero.headline.heating}</span>
+              <span className="hero-title-and">{t.hero.headline.and}</span>
+              <span className="hero-title-cooling">{t.hero.headline.cooling}</span>
+            </div>
+            <span className="hero-title-line">{t.hero.headline.line3}</span>
+            <span className="hero-title-line">{t.hero.headline.line4}</span>
+          </h1>
+          <div className="hero-stats">
+            <div className="hero-stat-item">
+              <Users size={20} />
+              <span>{t.hero.stats.customers}</span>
+            </div>
+            <div className="hero-stat-item">
+              <Phone size={20} />
+              <span>{t.hero.stats.phone}</span>
+            </div>
+          </div>
           <div className="hero-buttons">
-            <a href="#services" className="btn btn-primary">{t.hero.cta1}</a>
+            <button onClick={openModal} className="btn btn-primary">{t.hero.cta1}</button>
             <button onClick={openModal} className="btn btn-secondary">{t.hero.cta2}</button>
           </div>
+          <div className="hero-trust-badges">
+            <div className="trust-badge">
+              <Clock size={18} />
+              <span>{t.hero.trustBadges.emergency}</span>
+            </div>
+            <div className="trust-badge">
+              <DollarSign size={18} />
+              <span>{t.hero.trustBadges.pricing}</span>
+            </div>
+            <div className="trust-badge">
+              <MapPin size={18} />
+              <span>{t.hero.trustBadges.local}</span>
+            </div>
+            <div className="trust-badge">
+              <CheckCircle size={18} />
+              <span>{t.hero.trustBadges.licensed}</span>
+            </div>
+          </div>
+        </div>
+        <div className="hero-image-wrapper">
+          <img
+            src={heroImage}
+            alt="HVAC technician servicing air conditioning unit"
+            className="hero-image"
+          />
+          <div className="hero-image-fade" />
         </div>
       </section>
 
@@ -370,35 +514,38 @@ function App() {
             <p className="section-subtitle">{t.services.subtitle}</p>
           </div>
           <div className="services-grid">
-            {t.services.items.map((service, index) => {
-              const Icon = serviceIcons[index]
-              return (
-                <div key={index} className="service-card">
-                  <div className="service-icon">
-                    <Icon size={48} strokeWidth={1.5} />
-                  </div>
+            {t.services.items.map((service, index) => (
+              <div key={index} className="service-card">
+                <div className="service-image-container">
+                  <img src={service.image} alt={service.title} className="service-image" />
+                </div>
+                <div className="service-content">
                   <h3 className="service-title">{service.title}</h3>
                   <p className="service-description">{service.desc}</p>
+                  <a href="#contact" className="service-read-more">
+                    {t.services.readMore}
+                    <ArrowRight size={16} />
+                  </a>
                 </div>
-              )
-            })}
+              </div>
+            ))}
           </div>
           
           {/* Brand Logos Marquee */}
           <div className="brand-logos-container">
             <div className="brand-logos-scroll">
               <div className="brand-logos-track">
-                <img src="/Midea-Logo.png" alt="Midea" className="brand-logo" />
-                <img src="/LG-logo.png" alt="LG" className="brand-logo" />
-                <img src="/gree-logo.png" alt="Gree" className="brand-logo" />
-                <img src="/basic-logo.png" alt="Basic" className="brand-logo" />
-                <img src="/fisher-logo.png" alt="Fisher" className="brand-logo brand-logo-fisher" />
+                <img src={`${import.meta.env.BASE_URL}Midea-Logo.png`} alt="Midea" className="brand-logo" />
+                <img src={`${import.meta.env.BASE_URL}LG-logo.png`} alt="LG" className="brand-logo" />
+                <img src={`${import.meta.env.BASE_URL}gree-logo.png`} alt="Gree" className="brand-logo" />
+                <img src={`${import.meta.env.BASE_URL}basic-logo.png`} alt="Basic" className="brand-logo" />
+                <img src={`${import.meta.env.BASE_URL}fisher-logo.png`} alt="Fisher" className="brand-logo brand-logo-fisher" />
                 {/* Duplicate for seamless loop */}
-                <img src="/Midea-Logo.png" alt="Midea" className="brand-logo" />
-                <img src="/LG-logo.png" alt="LG" className="brand-logo" />
-                <img src="/gree-logo.png" alt="Gree" className="brand-logo" />
-                <img src="/basic-logo.png" alt="Basic" className="brand-logo" />
-                <img src="/fisher-logo.png" alt="Fisher" className="brand-logo brand-logo-fisher" />
+                <img src={`${import.meta.env.BASE_URL}Midea-Logo.png`} alt="Midea" className="brand-logo" />
+                <img src={`${import.meta.env.BASE_URL}LG-logo.png`} alt="LG" className="brand-logo" />
+                <img src={`${import.meta.env.BASE_URL}gree-logo.png`} alt="Gree" className="brand-logo" />
+                <img src={`${import.meta.env.BASE_URL}basic-logo.png`} alt="Basic" className="brand-logo" />
+                <img src={`${import.meta.env.BASE_URL}fisher-logo.png`} alt="Fisher" className="brand-logo brand-logo-fisher" />
               </div>
             </div>
           </div>
@@ -425,6 +572,39 @@ function App() {
                 </div>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="section testimonials-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">{t.testimonials.title}</h2>
+            <p className="section-subtitle">{t.testimonials.subtitle}</p>
+          </div>
+          <div className="testimonials-scroll-wrapper">
+            <div className="testimonials-track">
+              {t.testimonials.items.map((testimonial: { name: string; rating: number; text: string }, index: number) => (
+                <div key={index} className="testimonial-card">
+                  <div className="testimonial-quote-icon">
+                    <Quote size={28} />
+                  </div>
+                  <div className="testimonial-stars">
+                    {Array.from({ length: testimonial.rating }, (_, i) => (
+                      <Star key={i} size={18} fill="#fbbf24" color="#fbbf24" />
+                    ))}
+                  </div>
+                  <p className="testimonial-text">{testimonial.text}</p>
+                  <div className="testimonial-author">
+                    <div className="testimonial-avatar">
+                      {testimonial.name.charAt(0)}
+                    </div>
+                    <span className="testimonial-name">{testimonial.name}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
